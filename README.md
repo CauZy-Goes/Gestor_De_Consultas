@@ -9,7 +9,7 @@ Este é um sistema web **Full Stack em Django** para gestão de pacientes em uma
 - Atribuição de tarefas terapêuticas aos pacientes.
 - Geração de um link público para consulta.
 
-  ## 🌟 Tecnologias Utilizadas
+## 🌟 Tecnologias Utilizadas
 - **Linguagem:** Python
 - **Framework:** Django
 - **Banco de Dados:** SQLite
