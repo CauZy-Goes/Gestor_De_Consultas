@@ -1,0 +1,8 @@
+1 - Start
+
+    pip install django
+    pip install pillow = imagens
+    django-admin startproject core . =  criar o core
+    python manage.py runserver = iniciar server
+    python manage.py startapp pacientes   == criar app app
+    
