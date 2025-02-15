@@ -68,15 +68,7 @@
         >
           {{paciente.nome}}
         </p>
-        <span
-          class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10"
-          >{{total_consultas}} sessões realizadas</span
-        >
-        <span
-          class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-700/10"
-          >2 Faltas</span
-        >
-
+        
         <form action="{% url 'atualizar_paciente' paciente.id %}" method="POST">
           {% csrf_token %}
           <select
@@ -106,6 +98,14 @@
           >
             Registrar consulta
           </h2>
+
+          {% if messages %} {% for message in messages %}
+            <div class="rounded-md {{message.tags}} p-4">
+              <div class="flex">
+                <div class="ml-3">{{message}}</div>
+              </div>
+            </div>
+          {% endfor %} {% endif %}
 
           <form
             action="{% url 'paciente_view' paciente.id %}"
@@ -169,7 +169,9 @@
                 multiple
                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               >
-                <option value="">RPD</option>
+              {% for tarefa in tarefas %}
+                <option value="{{tarefa.id}}">{{tarefa.tarefa}}</option>
+              {% endfor %}
               </select>
             </div>
             <button
@@ -183,28 +185,32 @@
 
         <div class="mx-auto">
           <ul role="list" class="divide-y divide-white/5">
+
+            {% for consulta in consultas %} 
             <li class="relative flex items-center space-x-4 py-4">
               <div class="min-w-0 flex-auto">
                 <div class="flex items-center gap-x-3">
                   <div
-                    class="flex-none rounded-full p-1 bg-green-400/10 text-green-400"
+                    class="flex-none rounded-full p-1
+                     {% if consulta.humor >= 3 %} bg-green-400/10 text-green-400 
+                     {% else %} bg-red-400/10 text-red-400 {% endif %}"
                   >
                     <div class="size-2 rounded-full bg-current"></div>
                   </div>
                   <h2 class="min-w-0 text-sm/6 font-semibold text-slate-800">
-                    <a href="#" class="flex gap-x-2">
-                      <span class="truncate">30/02/20024</span>
+                    <a href="{% url 'consulta_publica' consulta.id %}" class="flex gap-x-2">
+                      <span class="truncate">{{consulta.data}}</span>
                     </a>
                   </h2>
                 </div>
                 <div
                   class="mt-3 flex items-center gap-x-2.5 text-xs/5 text-gray-400"
                 >
-                  <p class="truncate">Link aqui</p>
+                  <p class="truncate">{{consulta.link_publico}}</p>
                   <p class="whitespace-nowrap">0 - 0</p>
                 </div>
               </div>
-              <a href="" class="flex gap-x-2">
+              <a href="{% url 'excluir_consulta' consulta.id %}" class="flex gap-x-2">
                 <div
                   class="flex-none rounded-full bg-red-400/10 px-2 py-1 text-xs font-medium text-red-400 ring-1 ring-inset ring-red-400/30"
                 >
@@ -225,6 +231,7 @@
                 </svg>
               </a>
             </li>
+            {% endfor %}
           </ul>
         </div>
       </div>
