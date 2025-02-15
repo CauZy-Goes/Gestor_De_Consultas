@@ -5,4 +5,9 @@
     django-admin startproject core . =  criar o core
     python manage.py runserver = iniciar server
     python manage.py startapp pacientes   == criar app app
+
+2 - Banco
+
+    python manage.py makemigrations
+    python manage.py migrate
     
