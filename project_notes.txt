@@ -10,4 +10,8 @@
 
     python manage.py makemigrations
     python manage.py migrate
+
+3 -  Aplicacao
+
+    python manage.py createsuperuser
     

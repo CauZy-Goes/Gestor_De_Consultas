@@ -175,19 +175,27 @@
         role="list"
         class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
       >
+        {% for paciente in pacientes %}
         <li>
           <div class="flex items-center gap-x-6">
-            <img class="size-16 rounded-full" src="" alt="" />
+            <img
+              class="size-16 rounded-full"
+              src="{{paciente.foto.url}}"
+              alt=""
+            />
             <div>
               <a
-                href="#"
+                href="{% url 'paciente_view' paciente.id %}"
                 class="text-base/7 font-semibold tracking-tight text-gray-900"
-                >Caio Sampaio</a
+                >{{paciente.nome}}</a
               >
-              <p class="text-sm/6 font-semibold text-indigo-600">TDAH</p>
+              <p class="text-sm/6 font-semibold text-indigo-600">
+                {{paciente.queixa}}
+              </p>
             </div>
           </div>
         </li>
+        {% endfor %}
       </ul>
     </div>
   </div>

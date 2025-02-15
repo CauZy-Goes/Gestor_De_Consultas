@@ -31,3 +31,16 @@ def pacientes(request):
 
         messages.add_message(request, constants.SUCCESS, 'Paciente adicionado com sucesso')
         return redirect('pacientes')
+    
+def paciente_view(request, id):
+    paciente = Pacientes.objects.get(id=id)
+    if request.method == "GET":
+        return render(request, 'paciente.html', {'paciente': paciente})
+    
+def atualizar_paciente(request, id):
+    paciente = Pacientes.objects.get(id=id)
+    pagamento_em_dia = request.POST.get('pagamento_em_dia')
+    status = True if pagamento_em_dia == 'ativo' else False
+    paciente.pagamento_em_dia = status
+    paciente.save()
+    return redirect(f'/pacientes/{id}')
